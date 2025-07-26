@@ -1,0 +1,68 @@
+// Zellij Configuration for Claude Code Workflow
+// Optimized for SSH connections and keyboard-only usage
+
+// === UI Settings ===
+simplified_ui true
+pane_frames false
+default_shell "bash"
+scrollback_buffer_size 100000
+default_layout "compact"
+
+// UI configuration
+ui {
+    pane_frames {
+        rounded_corners true 
+        hide_session_name false
+    }
+}
+
+// === Session Settings ===
+session_serialization true
+serialize_pane_viewport true
+
+// === Keybindings ===
+keybinds {
+    normal {
+        // === Pane Navigation (Vim-style, matches Neovim) ===
+        bind "Ctrl h" { MoveFocus "Left"; }
+        bind "Ctrl j" { MoveFocus "Down"; }
+        bind "Ctrl k" { MoveFocus "Up"; }
+        bind "Ctrl l" { MoveFocus "Right"; }
+
+        // === Pane Resizing ===
+        bind "Ctrl Up" { Resize "Increase Up"; }
+        bind "Ctrl Down" { Resize "Increase Down"; }
+        bind "Ctrl Left" { Resize "Increase Left"; }
+        bind "Ctrl Right" { Resize "Increase Right"; }
+
+        // === Pane Management ===
+        // Note: Ctrl+n removed to avoid conflict with Neovim Neo-tree
+        bind "Ctrl b" { NewPane "Right"; }
+        bind "Ctrl v" { NewPane "Down"; }
+        bind "Ctrl x" { CloseFocus; }
+
+        // === View Controls ===
+        bind "Ctrl m" { ToggleFocusFullscreen; }
+        bind "Ctrl f" { ToggleFocusFullscreen; }
+
+        // === Mode Switching ===
+        bind "Ctrl s" { SwitchToMode "Scroll"; }
+        bind "Ctrl o" { SwitchToMode "Session"; }
+        bind "Ctrl q" { Quit; }
+    }
+
+    scroll {
+        // Exit scroll mode
+        bind "Ctrl s" { SwitchToMode "Normal"; }
+        bind "Esc" { SwitchToMode "Normal"; }
+        bind "q" { SwitchToMode "Normal"; }
+
+        // Vim-like scrolling
+        bind "j" { ScrollDown; }
+        bind "k" { ScrollUp; }
+        bind "d" { PageScrollDown; }
+        bind "u" { PageScrollUp; }
+        bind "g" { ScrollToTop; }
+        bind "G" { ScrollToBottom; }
+    }
+}

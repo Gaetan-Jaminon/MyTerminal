@@ -16,9 +16,9 @@ return {
 
     -- Set up treesitter with the necessary configurations
     configs.setup({
-      modules = {},
-      ensure_installed = { "go", "gomod", "gosum", "gowork" },
-      ignore_install = {},
+      -- Ensure these parsers are installed
+      ensure_installed = { "go", "gomod", "gosum", "gowork", "lua", "vim", "vimdoc", "query" },
+      
       -- Automatically install missing parsers when opening files in unsupported languages
       auto_install = true,
 
@@ -30,6 +30,8 @@ return {
         enable = true,
         -- Disable traditional regex-based syntax highlighting for performance improvement
         additional_vim_regex_highlighting = false,
+        -- Disable treesitter for Neo-tree to prevent conflicts
+        disable = { "neo-tree" },
       },
 
       -- Enable treesitter-based indentation for more accurate code indentation

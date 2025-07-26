@@ -1,24 +1,27 @@
 return {
-  -- Mason: Package manager for LSP servers, linters, and formatters
+  -- LSP Configuration with Mason
   {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end
-  },
-  -- Mason-LSPConfig: Bridges Mason with nvim-lspconfig
-  {
-    'williamboman/mason-lspconfig.nvim',
-    config = function()
-      require("mason-lspconfig").setup({
-        -- Ensure required language servers are installed
-        ensure_installed = { "lua_ls", "ansiblels", "yamlls", "omnisharp", "gopls" }  -- Add gopls for Go
-      })
-    end
-  },
-  -- LSPConfig: Configure individual language servers
-  {
-    'neovim/nvim-lspconfig',
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      -- Mason: Package manager for LSP servers
+      {
+        "williamboman/mason.nvim",
+        build = ":MasonUpdate",
+        config = function()
+          require("mason").setup()
+        end,
+      },
+      -- Bridge between Mason and lspconfig
+      {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+          require("mason-lspconfig").setup({
+            ensure_installed = { "lua_ls", "ansiblels", "yamlls", "gopls" },
+            automatic_installation = true,
+          })
+        end,
+      },
+    },
     config = function()
       local lspconfig = require("lspconfig")
 
@@ -59,17 +62,6 @@ return {
         },
       })
 
-      -- C#/.NET (Omnisharp) LSP configuration
-      lspconfig.omnisharp.setup({
-        cmd = { "omnisharp" },  -- Path to omnisharp executable
-        root_dir = lspconfig.util.root_pattern(".sln", ".csproj", ".git"),  -- Detect project root
-        settings = {
-          omnisharp = {
-            useModernNet = true,  -- Use modern .NET runtime
-          },
-        },
-      })
-
       -- Go (gopls) LSP configuration
       lspconfig.gopls.setup({
         settings = {
@@ -95,7 +87,6 @@ return {
               rangeVariableTypes = true,
             },
             analyses = {
-              fieldalignment = true,
               nilness = true,
               unusedparams = true,
               unusedwrite = true,
@@ -116,8 +107,7 @@ return {
       vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})  -- Find references
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})  -- Show code actions
       vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, {})  -- Shows parameter info while typing
-
-    end
+    end,
   },
   -- nvim-cmp: Autocompletion engine
   {
@@ -160,4 +150,3 @@ return {
     end
   },
 }
-

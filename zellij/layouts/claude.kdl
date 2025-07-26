@@ -1,0 +1,71 @@
+layout {
+
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+    // Tab 1: Coding (Neo-tree + Editor + Terminal)
+    tab name="Code" focus=true {
+      pane split_direction="horizontal" {
+        pane split_direction="vertical" {
+            pane size="30%" {
+                command "bash"
+                name "Terminal"
+            }
+            pane {
+                command "nvim"
+                args "-c" "Neotree filesystem reveal left" "-c" "wincmd l"
+            }
+        }
+        pane size="20%" {
+          command "bash"
+        }
+      }
+    }
+
+    tab name="Terminal" {
+      pane {
+        command "bash"
+      }
+    }
+
+    // Tab 4: K9s (Kubernetes)
+    tab name="Kubernetes" {
+        pane {
+            command "kd"
+        }
+    }
+
+    // Tab 5: Multi-Terminal (2x2 grid)
+    tab name="Multi Shell" {
+        pane split_direction="horizontal" {
+            pane split_direction="vertical" {
+                pane {
+                    command "bash"
+                    name "Term1"
+                }
+                pane {
+                    command "bash"
+                    name "Term2"
+                }
+            }
+            pane split_direction="vertical" {
+                pane {
+                    command "bash"
+                    name "Term3"
+                }
+                pane {
+                    command "bash"
+                    name "Term4"
+                }
+            }
+        }
+    }
+}
+

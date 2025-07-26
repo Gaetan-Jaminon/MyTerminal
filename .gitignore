@@ -1,0 +1,27 @@
+# Plugin directories (managed by Lazy.nvim)
+plugins/
+lazy/
+
+# Neovim cache and data files
+*.log
+.nvim/
+.netrwhist
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.sublime-*
+
+# Backup files
+*.bak
+*.backup
