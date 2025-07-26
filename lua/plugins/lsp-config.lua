@@ -66,7 +66,7 @@ return {
       lspconfig.gopls.setup({
         settings = {
           gopls = {
-            gofumpt = true,  -- Use gofumpt for formatting
+            gofumpt = false,  -- Disable auto-formatting to preserve learning errors
             codelenses = {
               gc_details = false,  -- Don't show gc details above functions
               generate = true,     -- Show generate comment above functions
@@ -93,12 +93,17 @@ return {
               useany = true,
             },
             usePlaceholders = true,
-            completeUnimported = true,
+            completeUnimported = false,  -- Disable auto-import to see import errors
             staticcheck = true,
             directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
             semanticTokens = true,
           },
         },
+        -- Disable automatic formatting on save
+        on_attach = function(client, bufnr)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end,
       })
 
       -- General LSP key mappings
@@ -106,7 +111,22 @@ return {
       vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})  -- Go to definition
       vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})  -- Find references
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})  -- Show code actions
+      vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})  -- Format code and organize imports
       vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, {})  -- Shows parameter info while typing
+      
+      -- Configure diagnostics display
+      vim.diagnostic.config({
+        virtual_text = true,  -- Show errors inline
+        signs = true,         -- Show error signs in the gutter
+        underline = true,     -- Underline errors
+        update_in_insert = false,  -- Don't update diagnostics in insert mode
+        severity_sort = true,  -- Sort by severity
+      })
+      
+      -- Set up diagnostic keymaps
+      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic' })
+      vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic' })
+      vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Show diagnostic details' })
     end,
   },
   -- nvim-cmp: Autocompletion engine

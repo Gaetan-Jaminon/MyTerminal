@@ -15,12 +15,12 @@ return {
         lsp_on_attach = nil, -- nil: use on_attach defined in go.nvim
         lsp_keymaps = false, -- set to false to disable gopls/lsp keymap
 
-        -- Format on save
+        -- Format on save (disabled for learning mode)
         fmt_on_save = {
-          enabled = true,
+          enabled = false,  -- Disabled to preserve learning errors
           pattern = { "*.go", "go.mod", "go.sum" },
         },
-        fmt_experimental = true,
+        fmt_experimental = false,
 
         -- Code lens
         lsp_codelens = true,
@@ -34,8 +34,8 @@ return {
           update_in_insert = false,
         },
 
-        -- Auto imports
-        goimports = "gopls", -- goimports command, can be gopls[default] or goimports
+        -- Auto imports (disabled for learning mode)
+        goimports = "", -- Disabled to preserve import errors for learning
         fillstruct = "gopls", -- can be nil (use fillstruct, slower) and gopls
 
         -- Tags
@@ -84,14 +84,14 @@ return {
         run_in_floaterm = false,
       })
 
-      -- Format on save autocmd
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        pattern = "*.go",
-        callback = function()
-          require("go.format").goimports()
-        end,
-        group = vim.api.nvim_create_augroup("GoFormat", {}),
-      })
+      -- Format on save autocmd (disabled for learning mode)
+      -- vim.api.nvim_create_autocmd("BufWritePre", {
+      --   pattern = "*.go",
+      --   callback = function()
+      --     require("go.format").goimports()
+      --   end,
+      --   group = vim.api.nvim_create_augroup("GoFormat", {}),
+      -- })
     end,
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },

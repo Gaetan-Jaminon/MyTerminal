@@ -152,6 +152,55 @@ This is a modular Neovim configuration using Lua with Lazy.nvim as the plugin ma
 - ✅ Treesitter parsers for go, gomod, gosum, gowork will auto-install
 - ✅ PATH updated to include ~/go/bin
 
+## Go Learning Mode Configuration
+
+**CURRENT STATUS: LEARNING MODE ENABLED**
+
+This configuration is currently set to **learning mode** to help understand Go's strict error handling:
+
+### Current Learning Settings
+- ❌ **Auto-formatting DISABLED** - Code and imports stay as written
+- ❌ **Auto-import removal DISABLED** - Unused imports stay visible
+- ✅ **Error detection ENABLED** - All compile errors, unused variables, and import issues are highlighted
+- ✅ **Manual control** - User decides when to format and organize imports
+
+### Files Modified for Learning Mode
+1. **lua/plugins/lsp-config.lua**:
+   - `gofumpt = false` - Disable auto-formatting
+   - `completeUnimported = false` - Disable auto-imports
+   - LSP formatting capabilities disabled
+
+2. **lua/plugins/go.lua**:
+   - `fmt_on_save.enabled = false` - Disable format on save
+   - `goimports = ""` - Disable auto-import management  
+   - BufWritePre autocmd commented out
+
+### To Enable Professional Auto-Format Mode Later
+
+When ready for professional development, enable auto-formatting by:
+
+1. **In lua/plugins/lsp-config.lua**:
+   ```lua
+   gofumpt = true,              -- Enable auto-formatting
+   completeUnimported = true,   -- Enable auto-import management
+   -- Remove the on_attach function that disables formatting
+   ```
+
+2. **In lua/plugins/go.lua**:
+   ```lua
+   fmt_on_save = { enabled = true, pattern = { "*.go", "go.mod", "go.sum" } },
+   goimports = "gopls",  -- Re-enable auto-import management
+   -- Uncomment the BufWritePre autocmd for goimports
+   ```
+
+3. **Restart Neovim** for changes to take effect
+
+### Learning Mode Benefits
+- See and understand all Go compile errors before they get fixed
+- Practice manual import management
+- Learn Go's strict rules about unused imports and variables
+- Build understanding of Go formatting standards
+
 ## Zellij Integration
 
 ### Zellij Shortcuts (Optimized for Neovim)

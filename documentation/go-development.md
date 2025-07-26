@@ -52,13 +52,18 @@ func main() {
 
 ### 2. **Error Detection & Quick Fixes**
 ```go
+import (
+    "fmt"  // Used - no error
+    "os"   // ← Highlighted as unused import (stays visible for learning)
+)
+
 var unused string  // ← Highlighted as unused variable
 ```
 **Capabilities**:
 - **Real-time linting**: See errors as you type
-- **Quick fixes**: `<leader>ca` to auto-fix issues
-- **Import management**: Auto-add/remove imports
-- **Code organization**: Suggest better patterns
+- **Learning mode**: Errors stay visible until manually fixed
+- **Quick fixes**: `<leader>ca` to show available fixes
+- **Manual control**: You decide when to fix imports and formatting
 
 ### 3. **Test-Driven Development**
 ```go
@@ -267,11 +272,44 @@ require (
 | Debugging not starting | Check delve installation | `:GoDebug` |
 | Formatting issues | Check gofumpt installation | `:GoFmt` |
 
+## Learning Mode Configuration
+
+This configuration is set up in **learning mode** to help you understand Go's strict error handling:
+
+### **Current Learning Settings**
+- ✅ **Manual Import Management**: Unused imports stay visible until you fix them
+- ✅ **No Auto-Formatting**: Code stays as you write it, showing style issues
+- ✅ **Visible Errors**: All compile errors, unused variables, and import issues are highlighted
+- ✅ **Manual Control**: You decide when to format and organize imports
+
+### **Error Navigation**
+| Shortcut | Description |
+|----------|-------------|
+| `[d` | Go to previous error |
+| `]d` | Go to next error |
+| `<leader>d` | Show detailed error message |
+| `<leader>ca` | Show available quick fixes |
+| `<leader>gf` | Manually format code and organize imports |
+
+### **Switching to Professional Mode**
+
+When you're comfortable with Go's rules, edit `lua/plugins/lsp-config.lua`:
+
+```lua
+-- Change these settings for automatic mode:
+gofumpt = true,              -- Enable auto-formatting
+completeUnimported = true,   -- Enable auto-import management
+
+-- Remove the on_attach function to enable auto-formatting
+```
+
+This will enable the standard Go development workflow with automatic import management and formatting on save.
+
 ## Best Practices
 
 ### 1. **Code Organization**
 - Use `<leader>gd` to navigate large codebases
-- Leverage `:GoImports` for clean import blocks
+- Use `<leader>gf` for manual formatting when learning
 - Use `:GoAddTag` for consistent struct tags
 
 ### 2. **Testing Strategy**
@@ -279,9 +317,9 @@ require (
 - Use `:GoCoverage` to ensure good coverage
 - Leverage table-driven tests with go.nvim
 
-### 3. **Performance Optimization**
-- Use LSP for real-time feedback
-- Enable auto-formatting on save
-- Leverage code lenses for quick actions
+### 3. **Learning Approach**
+- Let errors accumulate to understand Go's strictness
+- Use `<leader>ca` to see available fixes before applying them
+- Practice manual import management before enabling auto-mode
 
-This Go development environment provides a complete IDE experience within Neovim, optimized for productivity and ease of use.
+This Go development environment provides a complete IDE experience within Neovim, optimized for learning and productivity.
