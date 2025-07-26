@@ -37,9 +37,11 @@ keybinds {
 
         // === Pane Management ===
         // Note: Ctrl+n removed to avoid conflict with Neovim Neo-tree
+        // Note: Ctrl+x removed to avoid conflict with cut operation
+        // Note: Ctrl+w removed to avoid conflict with Neovim window operations
         bind "Ctrl b" { NewPane "Right"; }
         bind "Ctrl v" { NewPane "Down"; }
-        bind "Ctrl x" { CloseFocus; }
+        bind "Ctrl d" { CloseFocus; }
 
         // === View Controls ===
         bind "Ctrl m" { ToggleFocusFullscreen; }

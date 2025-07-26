@@ -160,7 +160,7 @@ This is a modular Neovim configuration using Lua with Lazy.nvim as the plugin ma
 | `Ctrl+h/j/k/l` | Navigate panes (matches Neovim splits) |
 | `Ctrl+b` | New pane right |
 | `Ctrl+v` | New pane down |
-| `Ctrl+x` | Close pane |
+| `Ctrl+d` | Close pane |
 | `Ctrl+m/f` | Toggle fullscreen |
 | `Ctrl+s` | Enter scroll mode |
 

@@ -10,7 +10,7 @@ Complete guide for using Zellij terminal multiplexer with your Neovim configurat
 | `Ctrl+h/j/k/l` | Navigate panes | Matches Neovim split navigation |
 | `Ctrl+b` | New pane right | Horizontal split workflow |
 | `Ctrl+v` | New pane down | Vertical split workflow |
-| `Ctrl+x` | Close current pane | Clean workspace management |
+| `Ctrl+d` | Close current pane | Clean workspace management |
 | `Ctrl+m` | Toggle fullscreen | Focus mode for coding |
 
 ### Session Management
